@@ -8,11 +8,23 @@ Tablero Trello: **[NoteFlow](https://trello.com/b/pEB0Awkj/noteflow)**
 
 Columnas: Backlog → Todo → In Progress → Review → Done.
 
+## Desarrollo
+
+Requisitos: Node.js LTS, npm.
+
+```bash
+npm install
+npx expo start
+```
+
+Abre en Expo Go (QR) o en emulador Android/iOS. Esquema de deep linking: `noteflow://`.
+
 ## Documentación
 
 - [Definición de la idea](docs/idea.md)
 - [Gestión del proyecto](docs/project-management.md)
 - [Configuración de IA (Cursor)](docs/ai-setup.md)
+- [React Native y setup](docs/react-native-teoria.md)
 
 ## Repositorio
 
