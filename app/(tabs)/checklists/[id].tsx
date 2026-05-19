@@ -1,26 +1,85 @@
-import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import * as Haptics from 'expo-haptics';
+import { router, useLocalSearchParams } from 'expo-router';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Checkbox, List, Text, useTheme } from 'react-native-paper';
 
 import { spacing } from '@/constants/theme';
+import { useConfirmDelete } from '@/hooks/useConfirmDelete';
+import { useNotesStore } from '@/store/notesStore';
+import { formatNoteDate } from '@/utils/date';
 
 export default function ChecklistDetalleScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const theme = useTheme();
+  const checklist = useNotesStore((s) => s.checklists.find((c) => c.id === id));
+  const toggleChecklistItem = useNotesStore((s) => s.toggleChecklistItem);
+  const deleteChecklist = useNotesStore((s) => s.deleteChecklist);
+
+  const handleDelete = useConfirmDelete(() => {
+    deleteChecklist(id!);
+    router.back();
+  });
+
+  const handleToggle = (itemId: string) => {
+    if (!checklist) return;
+    toggleChecklistItem(checklist.id, itemId);
+    const fresh = useNotesStore
+      .getState()
+      .checklists.find((c) => c.id === checklist.id);
+    if (
+      fresh &&
+      fresh.items.length > 0 &&
+      fresh.items.every((i) => i.isCompleted)
+    ) {
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+  };
+
+  if (!checklist) {
+    return (
+      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+        <Text>Lista no encontrada.</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Text variant="headlineSmall">Detalle de lista</Text>
-      <Text variant="bodyMedium" style={{ marginTop: spacing.sm }}>
-        ID: {id}
+    <ScrollView
+      style={{ backgroundColor: theme.colors.background }}
+      contentContainerStyle={styles.container}
+    >
+      <Text variant="headlineMedium" style={styles.title}>
+        {checklist.title}
       </Text>
-    </View>
+      <Text variant="labelMedium" style={{ color: theme.colors.onSurfaceVariant }}>
+        Actualizada: {formatNoteDate(checklist.updatedAt)}
+      </Text>
+      {checklist.items.map((item) => (
+        <List.Item
+          key={item.id}
+          title={item.text}
+          left={() => (
+            <Checkbox
+              status={item.isCompleted ? 'checked' : 'unchecked'}
+              onPress={() => handleToggle(item.id)}
+            />
+          )}
+          onPress={() => handleToggle(item.id)}
+        />
+      ))}
+      <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
+        Eliminar lista
+      </Button>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: spacing.md,
+  },
+  title: {
+    fontWeight: '700',
+    marginBottom: spacing.xs,
   },
 });

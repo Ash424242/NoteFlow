@@ -1,8 +1,9 @@
 import { FlashList } from '@shopify/flash-list';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { FAB, Text, useTheme } from 'react-native-paper';
+import { FAB, useTheme } from 'react-native-paper';
 
+import { EmptyState } from '@/components/EmptyState';
 import { IdeaCard } from '@/components/items/IdeaCard';
 import { spacing } from '@/constants/theme';
 import { useNotesStore } from '@/store/notesStore';
@@ -24,9 +25,10 @@ export default function IdeasScreen() {
           />
         )}
         ListEmptyComponent={
-          <Text variant="bodyLarge" style={{ color: theme.colors.onSurfaceVariant }}>
-            No hay ideas. Pulsa + para crear una.
-          </Text>
+          <EmptyState
+            title="Sin ideas"
+            description="Pulsa + para capturar tu primera idea."
+          />
         }
       />
       <FAB
