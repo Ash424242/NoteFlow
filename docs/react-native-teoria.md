@@ -105,6 +105,32 @@ npx expo start
 
 Luego abrir en Expo Go (desarrollo rápido) o en un Development Build cuando se genere con EAS.
 
+## Sistemas de diseño
+
+### Comparativa: Gluestack UI vs React Native Paper
+
+| Criterio | Gluestack UI | React Native Paper |
+|----------|--------------|-------------------|
+| Enfoque | Utility-first, muy personalizable (estilo Tailwind) | Material Design 3, componentes listos |
+| Curva de aprendizaje | Mayor (tokens, proveedores, a veces NativeWind) | Menor; API estable y documentada |
+| Identidad visual | Ideal para marcas muy custom | Coherente Material; personalizable vía tema |
+| Android | Buena | Integración Material nativa en Android |
+| Productividad en MVP | Más configuración inicial | Pantallas funcionales más rápido |
+
+### Elección en NoteFlow: React Native Paper
+
+Se eligió **React Native Paper** porque NoteFlow es una app de productividad donde la prioridad es claridad, accesibilidad y componentes probados (botones, inputs, chips, barras de progreso) sin montar un sistema de estilos desde cero. La paleta y tipografía propias viven en `constants/theme.ts` y se inyectan en los temas MD3 claro/oscuro, manteniendo identidad sin renunciar a la velocidad de desarrollo.
+
+Gluestack UI sigue siendo una opción válida si en el futuro se requiere un diseño altamente distinto al Material; para la v1, Paper equilibra mejor tiempo y mantenibilidad.
+
+### Tokens y modo claro/oscuro
+
+- **`constants/theme.ts`**: paleta (`palette`), escala tipográfica (`typography`), espaciados (`spacing`) y temas `lightTheme` / `darkTheme` para Paper.
+- **`hooks/useAppTheme.ts`**: lee `useColorScheme()` del sistema y devuelve el tema activo.
+- **`app/_layout.tsx`**: envuelve la app con `PaperProvider` y ajusta `StatusBar` según el tema.
+
+`app.json` usa `"userInterfaceStyle": "automatic"` para seguir la preferencia del dispositivo.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
