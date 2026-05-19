@@ -7,8 +7,6 @@ import { IdeaCard } from '@/components/items/IdeaCard';
 import { spacing } from '@/constants/theme';
 import { useNotesStore } from '@/store/notesStore';
 
-const ESTIMATED_ITEM_SIZE = 150;
-
 export default function IdeasScreen() {
   const theme = useTheme();
   const ideas = useNotesStore((s) => s.ideas);
@@ -17,7 +15,6 @@ export default function IdeasScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <FlashList
         data={ideas}
-        estimatedItemSize={ESTIMATED_ITEM_SIZE}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (

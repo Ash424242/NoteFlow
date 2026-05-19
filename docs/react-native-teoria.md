@@ -185,12 +185,12 @@ NoteFlow usa **`store/notesStore.ts`** con tres arrays (`notes`, `checklists`, `
 
 ## Rendimiento en listas
 
-**FlatList** recicla celdas, pero con scroll rápido y listas largas puede dejar huecos en blanco. **FlashList** (@shopify/flash-list) estima el tamaño de cada fila (`estimatedItemSize`) y recicla vistas de forma más agresiva, manteniendo FPS estables con decenas o cientos de ítems.
+**FlatList** recicla celdas, pero con scroll rápido y listas largas puede dejar huecos en blanco. **FlashList** (@shopify/flash-list) recicla vistas de forma más agresiva que FlatList, manteniendo FPS estables con decenas o cientos de ítems. En la v1 de FlashList se usaba `estimatedItemSize`; en **v2** el tamaño se mide automáticamente. En NoteFlow guardamos alturas de referencia en `constants/listSizes.ts` (~130–150 px) para diseño consistente de tarjetas.
 
 En NoteFlow:
 
 - `NoteCard`, `ChecklistCard`, `IdeaCard` en `components/items/`.
-- Cada pestaña usa FlashList con un `estimatedItemSize` calibrado (~130–150 px).
+- Cada pestaña usa FlashList con tarjetas de altura estable.
 - Las tarjetas son componentes ligeros; la lógica pesada permanece en el store.
 
 ## Referencias

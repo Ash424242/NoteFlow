@@ -7,8 +7,6 @@ import { NoteCard } from '@/components/items/NoteCard';
 import { spacing } from '@/constants/theme';
 import { useNotesStore } from '@/store/notesStore';
 
-const ESTIMATED_ITEM_SIZE = 130;
-
 export default function NotasScreen() {
   const theme = useTheme();
   const notes = useNotesStore((s) => s.notes);
@@ -17,7 +15,6 @@ export default function NotasScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <FlashList
         data={notes}
-        estimatedItemSize={ESTIMATED_ITEM_SIZE}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (

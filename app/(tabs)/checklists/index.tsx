@@ -7,8 +7,6 @@ import { ChecklistCard } from '@/components/items/ChecklistCard';
 import { spacing } from '@/constants/theme';
 import { useNotesStore } from '@/store/notesStore';
 
-const ESTIMATED_ITEM_SIZE = 140;
-
 export default function ChecklistsScreen() {
   const theme = useTheme();
   const checklists = useNotesStore((s) => s.checklists);
@@ -17,7 +15,6 @@ export default function ChecklistsScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <FlashList
         data={checklists}
-        estimatedItemSize={ESTIMATED_ITEM_SIZE}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
