@@ -151,6 +151,28 @@ El layout raíz (`app/_layout.tsx`) es un **Stack** que contiene el grupo `(tabs
 
 `app/index.tsx` redirige a `/notas` como pantalla inicial.
 
+## Modelado de datos con TypeScript
+
+Los tipos viven en `types/index.ts`:
+
+- **`BaseNote`**: campos comunes (`id`, `title`, fechas).
+- **`Note`**, **`ChecklistNote`**, **`IdeaNote`**: especializaciones.
+- **`AnyNote`**: unión `Note | ChecklistNote | IdeaNote` para funciones genéricas.
+
+### Type guards
+
+En tiempo de ejecución TypeScript no distingue interfaces. Se usan **type guards**:
+
+```typescript
+if ('items' in note) {
+  // note es ChecklistNote
+}
+```
+
+En el proyecto: `isChecklistNote`, `isIdeaNote`, `isTextNote` y `getNoteType()` centralizan esa lógica y evitan errores al renderizar tarjetas o rutas de detalle.
+
+Las fechas se serializan como ISO string en persistencia y se rehidratan a `Date` al cargar el store.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
