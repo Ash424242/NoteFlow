@@ -12,6 +12,7 @@ Columnas: Backlog → Todo → In Progress → Review → Done.
 
 - [Definición de la idea](docs/idea.md)
 - [Gestión del proyecto](docs/project-management.md)
+- [Configuración de IA (Cursor)](docs/ai-setup.md)
 
 ## Repositorio
 

@@ -1,0 +1,83 @@
+# NoteFlow — Reglas de Cursor
+
+## Contexto del proyecto
+
+NoteFlow es una app móvil de productividad (Fase 6) que unifica tres tipos de contenido: notas de texto, listas de tareas (checklists) e ideas con etiquetas. Repositorio: https://github.com/Ash424242/NoteFlow
+
+Documentación de referencia: `docs/idea.md`, `docs/project-management.md`.
+
+## Idioma
+
+- Toda la documentación, comentarios de código y mensajes de usuario visibles deben estar en **español** correcto.
+- Nombres de código (variables, funciones, archivos, rutas) en **inglés**, siguiendo convenciones del ecosistema React/Expo.
+
+## Stack (no sustituir sin decisión explícita)
+
+- React Native + **Expo SDK** (TypeScript)
+- **Expo Router** (navegación basada en archivos)
+- **Zustand** para estado global (no Redux ni Context API para estado de app)
+- **@shopify/flash-list** para listas (no FlatList en pantallas principales)
+- **Zod** para validación de formularios
+- **@react-native-async-storage/async-storage** con middleware `persist` de Zustand
+- Librería UI: la elegida en el proyecto (Gluestack UI o React Native Paper); respetar su provider y tokens
+
+## Estructura de carpetas
+
+```
+app/           # Rutas Expo Router (tabs, modales, [id])
+components/    # UI reutilizable (p. ej. components/items/*Card.tsx)
+store/         # Stores Zustand
+types/         # Interfaces y type guards TypeScript
+constants/     # theme.ts, valores fijos
+docs/          # Documentación del proyecto
+```
+
+No crear carpetas paralelas (`src/`, `screens/`) salvo que el proyecto ya las use.
+
+## Convenciones de código
+
+- Componentes funcionales y hooks; sin class components.
+- TypeScript estricto: tipar props, estado y retornos; evitar `any`.
+- Modelos en `types/index.ts`: `Note`, `ChecklistNote`, `IdeaNote`, `AnyNote`; distinguir en runtime con type guards (`'items' in note`).
+- Estilos: usar tokens de `constants/theme.ts` y tema claro/oscuro con `useColorScheme`.
+- Imports ordenados: externos → internos absolutos/alias → relativos.
+
+## React Native y rendimiento
+
+- Usar componentes de RN (`View`, `Text`, `Pressable`), no elementos HTML.
+- Evitar lógica pesada en render; memorizar listas y callbacks cuando FlashList lo requiera.
+- `estimatedItemSize` obligatorio y realista en FlashList.
+- `KeyboardAvoidingView`: `behavior="padding"` en iOS, `behavior="height"` en Android en formularios.
+
+## Navegación (Expo Router)
+
+- Pestañas: `app/(tabs)/` — Notas, Tareas (checklists), Ideas.
+- Detalle: rutas dinámicas `[id].tsx`.
+- Creación: modal `app/nueva-nota.tsx` (o nombre acordado en el repo).
+- Usar `router.push`, `router.back` de `expo-router`; no react-navigation directo si Router ya cubre el caso.
+
+## Estado y persistencia
+
+- Un store principal en `store/notesStore.ts` (o stores acotados por dominio si crece).
+- Acciones inmutables en Zustand; no mutar arrays/objetos en sitio.
+- Persistencia solo vía middleware `persist` + AsyncStorage; no duplicar lógica de guardado manual dispersa.
+
+## Alcance y calidad
+
+- Cambios mínimos y enfocados; no refactorizar ni añadir dependencias no pedidas.
+- No bajar versiones de SDK ni dependencias de Expo.
+- No commitear secretos (`.env`, claves API).
+- No modificar ni versionar `Instrucciones.md` (está en `.gitignore`).
+
+## UX acordada en el proyecto
+
+- Feedback háptico (`expo-haptics`) en eliminar y al completar checklist.
+- Confirmación con `Alert.alert` antes de eliminar.
+- Estados vacíos en listas sin contenido.
+- Mensajes de error de Zod debajo de los campos del formulario.
+
+## Cuando generes código
+
+1. Lee archivos existentes y replica su estilo antes de inventar patrones nuevos.
+2. Prioriza coherencia, mantenibilidad, escalabilidad y seguridad.
+3. Si falta contexto, pregunta o infiere desde `docs/idea.md` y la estructura actual del repo.
