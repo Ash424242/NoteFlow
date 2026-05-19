@@ -43,6 +43,15 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="archivados"
+        options={{
+          title: 'Archivo',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="archive-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

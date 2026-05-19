@@ -12,11 +12,23 @@ export default function NotaDetalleScreen() {
   const theme = useTheme();
   const note = useNotesStore((s) => s.notes.find((n) => n.id === id));
   const deleteNote = useNotesStore((s) => s.deleteNote);
+  const archiveNote = useNotesStore((s) => s.archiveNote);
+  const unarchiveNote = useNotesStore((s) => s.unarchiveNote);
 
   const handleDelete = useConfirmDelete(() => {
     deleteNote(id!);
     router.back();
   });
+
+  const handleArchive = () => {
+    archiveNote(id!);
+    router.back();
+  };
+
+  const handleUnarchive = () => {
+    unarchiveNote(id!);
+    router.back();
+  };
 
   if (!note) {
     return (
@@ -40,9 +52,25 @@ export default function NotaDetalleScreen() {
       <Text variant="bodyLarge" style={styles.content}>
         {note.content}
       </Text>
-      <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
-        Eliminar nota
-      </Button>
+      {note.archived ? (
+        <>
+          <Button mode="outlined" onPress={handleUnarchive} style={styles.action}>
+            Restaurar
+          </Button>
+          <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
+            Eliminar definitivamente
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button mode="outlined" onPress={handleArchive} style={styles.action}>
+            Archivar
+          </Button>
+          <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
+            Eliminar
+          </Button>
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -59,5 +87,8 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     marginBottom: spacing.lg,
     lineHeight: 24,
+  },
+  action: {
+    marginBottom: spacing.sm,
   },
 });

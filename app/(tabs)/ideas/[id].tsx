@@ -12,6 +12,8 @@ export default function IdeaDetalleScreen() {
   const theme = useTheme();
   const idea = useNotesStore((s) => s.ideas.find((i) => i.id === id));
   const deleteIdea = useNotesStore((s) => s.deleteIdea);
+  const archiveIdea = useNotesStore((s) => s.archiveIdea);
+  const unarchiveIdea = useNotesStore((s) => s.unarchiveIdea);
 
   const handleDelete = useConfirmDelete(() => {
     deleteIdea(id!);
@@ -42,9 +44,25 @@ export default function IdeaDetalleScreen() {
           <Chip key={tag}>{tag}</Chip>
         ))}
       </View>
-      <Button mode="contained-tonal" onPress={handleDelete}>
-        Eliminar idea
-      </Button>
+      {idea.archived ? (
+        <>
+          <Button mode="outlined" onPress={() => { unarchiveIdea(id!); router.back(); }} style={styles.action}>
+            Restaurar
+          </Button>
+          <Button mode="contained-tonal" onPress={handleDelete}>
+            Eliminar definitivamente
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button mode="outlined" onPress={() => { archiveIdea(id!); router.back(); }} style={styles.action}>
+            Archivar
+          </Button>
+          <Button mode="contained-tonal" onPress={handleDelete}>
+            Eliminar
+          </Button>
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -66,5 +84,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: spacing.xs,
     marginBottom: spacing.lg,
+  },
+  action: {
+    marginBottom: spacing.sm,
   },
 });

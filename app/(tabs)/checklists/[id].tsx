@@ -14,6 +14,8 @@ export default function ChecklistDetalleScreen() {
   const checklist = useNotesStore((s) => s.checklists.find((c) => c.id === id));
   const toggleChecklistItem = useNotesStore((s) => s.toggleChecklistItem);
   const deleteChecklist = useNotesStore((s) => s.deleteChecklist);
+  const archiveChecklist = useNotesStore((s) => s.archiveChecklist);
+  const unarchiveChecklist = useNotesStore((s) => s.unarchiveChecklist);
 
   const handleDelete = useConfirmDelete(() => {
     deleteChecklist(id!);
@@ -67,9 +69,25 @@ export default function ChecklistDetalleScreen() {
           onPress={() => handleToggle(item.id)}
         />
       ))}
-      <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
-        Eliminar lista
-      </Button>
+      {checklist.archived ? (
+        <>
+          <Button mode="outlined" onPress={() => { unarchiveChecklist(id!); router.back(); }} style={styles.action}>
+            Restaurar
+          </Button>
+          <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
+            Eliminar definitivamente
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button mode="outlined" onPress={() => { archiveChecklist(id!); router.back(); }} style={styles.action}>
+            Archivar
+          </Button>
+          <Button mode="contained-tonal" buttonColor={theme.colors.errorContainer} onPress={handleDelete}>
+            Eliminar
+          </Button>
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -81,5 +99,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '700',
     marginBottom: spacing.xs,
+  },
+  action: {
+    marginTop: spacing.md,
+    marginBottom: spacing.sm,
   },
 });

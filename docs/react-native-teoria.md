@@ -205,6 +205,12 @@ AsyncStorage guarda el JSON del store bajo la clave `noteflow-storage` (middlewa
 
 Al abrir la app, Zustand lee AsyncStorage y reconstruye el estado. Las fechas ISO se convierten de nuevo a `Date` en `onRehydrateStorage` (`utils/rehydrateDates.ts`). Hasta que termina, `_hasHydrated` es `false` y `HydrationGate` muestra un indicador de carga para no pintar listas vacías por un frame.
 
+## Extensiones de la fase
+
+- **Búsqueda global por pestaña:** `ListSearchHeader` filtra en tiempo real por título en Notas, Tareas, Ideas y Archivo.
+- **Animaciones:** tarjetas envueltas en `AnimatedListItem` con `FadeInDown` / `FadeOutLeft` (Reanimated).
+- **Archivado:** campo `archived` en `BaseNote`, acciones `archive*` / `unarchive*` en el store y pestaña **Archivo** para elementos archivados (restaurar o eliminar definitivamente).
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)

@@ -21,6 +21,12 @@ interface NotesStore {
   deleteNote: (id: string) => void;
   deleteChecklist: (id: string) => void;
   deleteIdea: (id: string) => void;
+  archiveNote: (id: string) => void;
+  archiveChecklist: (id: string) => void;
+  archiveIdea: (id: string) => void;
+  unarchiveNote: (id: string) => void;
+  unarchiveChecklist: (id: string) => void;
+  unarchiveIdea: (id: string) => void;
   toggleChecklistItem: (checklistId: string, itemId: string) => void;
 }
 
@@ -44,6 +50,42 @@ export const useNotesStore = create<NotesStore>()(
         })),
       deleteIdea: (id) =>
         set((state) => ({ ideas: state.ideas.filter((i) => i.id !== id) })),
+      archiveNote: (id) =>
+        set((state) => ({
+          notes: state.notes.map((n) =>
+            n.id === id ? { ...n, archived: true, updatedAt: new Date() } : n,
+          ),
+        })),
+      archiveChecklist: (id) =>
+        set((state) => ({
+          checklists: state.checklists.map((c) =>
+            c.id === id ? { ...c, archived: true, updatedAt: new Date() } : c,
+          ),
+        })),
+      archiveIdea: (id) =>
+        set((state) => ({
+          ideas: state.ideas.map((i) =>
+            i.id === id ? { ...i, archived: true, updatedAt: new Date() } : i,
+          ),
+        })),
+      unarchiveNote: (id) =>
+        set((state) => ({
+          notes: state.notes.map((n) =>
+            n.id === id ? { ...n, archived: false, updatedAt: new Date() } : n,
+          ),
+        })),
+      unarchiveChecklist: (id) =>
+        set((state) => ({
+          checklists: state.checklists.map((c) =>
+            c.id === id ? { ...c, archived: false, updatedAt: new Date() } : c,
+          ),
+        })),
+      unarchiveIdea: (id) =>
+        set((state) => ({
+          ideas: state.ideas.map((i) =>
+            i.id === id ? { ...i, archived: false, updatedAt: new Date() } : i,
+          ),
+        })),
       toggleChecklistItem: (checklistId, itemId) =>
         set((state) => ({
           checklists: state.checklists.map((c) =>
