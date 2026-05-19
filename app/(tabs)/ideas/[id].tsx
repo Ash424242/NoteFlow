@@ -30,13 +30,15 @@ export default function IdeaDetalleScreen() {
 
   return (
     <ScrollView
-      style={{ backgroundColor: idea.color }}
+      style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={styles.container}
     >
-      <Text variant="headlineMedium" style={styles.title}>
-        {idea.title}
-      </Text>
-      <Text variant="labelMedium" style={styles.meta}>
+      <View style={[styles.colorBanner, { backgroundColor: idea.color }]}>
+        <Text variant="headlineMedium" style={[styles.title, { color: theme.colors.onSurface }]}>
+          {idea.title}
+        </Text>
+      </View>
+      <Text variant="labelMedium" style={[styles.meta, { color: theme.colors.onSurfaceVariant }]}>
         Actualizada: {formatNoteDate(idea.updatedAt)}
       </Text>
       <View style={styles.tags}>
@@ -70,6 +72,11 @@ export default function IdeaDetalleScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: spacing.md,
+  },
+  colorBanner: {
+    padding: spacing.md,
+    borderRadius: 12,
+    marginBottom: spacing.md,
   },
   title: {
     fontWeight: '700',

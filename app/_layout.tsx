@@ -28,6 +28,14 @@ export default function RootLayout() {
             headerTitleAlign: 'center',
           }}
         />
+        <Stack.Screen
+          name="nueva-note"
+          options={{
+            presentation: 'modal',
+            title: 'Nuevo contenido',
+            headerTitleAlign: 'center',
+          }}
+        />
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
       </HydrationGate>

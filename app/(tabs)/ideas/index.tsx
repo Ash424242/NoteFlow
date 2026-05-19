@@ -1,4 +1,5 @@
-import { FlashList } from '@shopify/flash-list';
+import { AppFlashList } from '@/components/AppFlashList';
+import { listEstimatedSizes } from '@/constants/listSizes';
 import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -24,8 +25,9 @@ export default function IdeasScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <FlashList
+      <AppFlashList
         data={data}
+        estimatedItemSize={listEstimatedSizes.idea}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         ListHeaderComponent={

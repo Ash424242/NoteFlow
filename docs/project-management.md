@@ -95,7 +95,7 @@ Cada tarjeta del tablero corresponde a una funcionalidad de la primera versión 
 4. **Revisión:** Al terminar la implementación, la tarjeta pasa a **Review** para comprobar criterios de aceptación y pruebas en dispositivo o simulador.
 5. **Cierre:** Tras validar, la tarjeta se mueve a **Done** y se enlaza el commit o PR relevante en la descripción de la tarjeta cuando aplique.
 
-Las funcionalidades **opcionales** (búsqueda global, animaciones, archivado, etc.) permanecen en **Backlog** hasta que la v1 esté estable; no bloquean el entregable principal.
+Las funcionalidades de **extensión** (búsqueda, animaciones, archivado) están implementadas en el repositorio; en Trello pueden marcarse como **Done** tras validación en dispositivo.
 
 ## Estado actual
 
@@ -103,7 +103,15 @@ Las funcionalidades **opcionales** (búsqueda global, animaciones, archivado, et
 |-----------------------------|------------------|
 | Definición de la idea       | Done             |
 | Organización del proyecto   | Done             |
-| Setup Expo y dependencias   | Backlog          |
-| Resto de funcionalidades v1 | Backlog          |
+| Configuración IA (Cursor)   | Done             |
+| Setup Expo y teoría RN      | Done             |
+| Sistema de diseño (Paper)   | Done             |
+| Navegación Expo Router      | Done             |
+| Modelado TypeScript         | Done             |
+| Zustand                     | Done             |
+| FlashList y tarjetas        | Done             |
+| Formularios Zod             | Done             |
+| Persistencia AsyncStorage   | Done             |
+| Pulido UX y extensión       | Review (validar en simulador) |
 
 *Actualizar esta tabla al mover tarjetas en el [tablero](https://trello.com/b/pEB0Awkj/noteflow).*

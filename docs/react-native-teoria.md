@@ -185,13 +185,25 @@ NoteFlow usa **`store/notesStore.ts`** con tres arrays (`notes`, `checklists`, `
 
 ## Rendimiento en listas
 
-**FlatList** recicla celdas, pero con scroll rápido y listas largas puede dejar huecos en blanco. **FlashList** (@shopify/flash-list) recicla vistas de forma más agresiva que FlatList, manteniendo FPS estables con decenas o cientos de ítems. En la v1 de FlashList se usaba `estimatedItemSize`; en **v2** el tamaño se mide automáticamente. En NoteFlow guardamos alturas de referencia en `constants/listSizes.ts` (~130–150 px) para diseño consistente de tarjetas.
+**FlatList** recicla celdas, pero con scroll rápido y listas largas puede dejar huecos en blanco. **FlashList** (@shopify/flash-list) recicla vistas de forma más agresiva que FlatList, manteniendo FPS estables con decenas o cientos de ítems. La propiedad **`estimatedItemSize`** indica la altura aproximada de cada fila antes del layout; cuanto más precisa, mejor el rendimiento.
 
 En NoteFlow:
 
 - `NoteCard`, `ChecklistCard`, `IdeaCard` en `components/items/`.
-- Cada pestaña usa FlashList con tarjetas de altura estable.
+- `components/AppFlashList.tsx` envuelve FlashList y exige `estimatedItemSize`.
+- Valores en `constants/listSizes.ts` (~130–150 px) usados en cada pestaña.
 - Las tarjetas son componentes ligeros; la lógica pesada permanece en el store.
+
+### Auditoría de rendimiento (50+ ítems)
+
+Para validar scroll fluido con listas largas (requisito del enunciado):
+
+1. En desarrollo, ejecutar `seedBenchmarkData()` desde `utils/seedBenchmarkData.ts` (añade 55 ítems por tipo).
+2. Abrir cada pestaña y hacer scroll rápido; comprobar que no hay pantallas en blanco.
+3. Alternar tema claro/oscuro del sistema y revisar contraste en tarjetas y detalle.
+4. Cerrar la app por completo y reabrir para confirmar persistencia.
+
+Registrar en Trello la tarjeta «Pulido UX» como **Done** tras la prueba en simulador o dispositivo.
 
 ## Formularios y validación
 

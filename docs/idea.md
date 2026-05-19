@@ -44,14 +44,16 @@ La app prioriza velocidad de captura, claridad visual entre tipos de contenido y
    - Tema claro y oscuro según el sistema.
    - Feedback háptico en acciones clave, confirmación al eliminar y estados vacíos por pestaña.
 
-7. **Documentación técnica**
+7. **Búsqueda, animaciones y archivado** (extensión de la fase)
+   - Búsqueda en tiempo real por título en cada pestaña.
+   - Animaciones de tarjetas con Reanimated.
+   - Archivar y restaurar; pestaña **Archivo** para elementos archivados.
+
+8. **Documentación técnica**
    - Fundamentos de React Native, decisiones de diseño y arquitectura en `docs/`.
 
 ## Funcionalidades opcionales (futuras)
 
-- Búsqueda global en tiempo real en la cabecera de cada pestaña.
-- Animaciones de entrada y salida en tarjetas (Reanimated).
-- Archivar notas en lugar de eliminarlas, con pestaña de archivados.
 - Sincronización en la nube y copia de seguridad.
 - Recordatorios y notificaciones push para tareas o ideas.
 - Adjuntos (imágenes, enlaces) en notas.
