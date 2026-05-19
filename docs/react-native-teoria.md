@@ -183,6 +183,16 @@ Las fechas se serializan como ISO string en persistencia y se rehidratan a `Date
 
 NoteFlow usa **`store/notesStore.ts`** con tres arrays (`notes`, `checklists`, `ideas`) y acciones tipadas. Los componentes se suscriben solo a lo que necesitan (`useNotesStore((s) => s.notes)`), evitando renders innecesarios frente a un Context monolítico.
 
+## Rendimiento en listas
+
+**FlatList** recicla celdas, pero con scroll rápido y listas largas puede dejar huecos en blanco. **FlashList** (@shopify/flash-list) estima el tamaño de cada fila (`estimatedItemSize`) y recicla vistas de forma más agresiva, manteniendo FPS estables con decenas o cientos de ítems.
+
+En NoteFlow:
+
+- `NoteCard`, `ChecklistCard`, `IdeaCard` en `components/items/`.
+- Cada pestaña usa FlashList con un `estimatedItemSize` calibrado (~130–150 px).
+- Las tarjetas son componentes ligeros; la lógica pesada permanece en el store.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
