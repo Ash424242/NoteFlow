@@ -173,6 +173,16 @@ En el proyecto: `isChecklistNote`, `isIdeaNote`, `isTextNote` y `getNoteType()` 
 
 Las fechas se serializan como ISO string en persistencia y se rehidratan a `Date` al cargar el store.
 
+## Gestión de estado
+
+| Enfoque | Ventajas | Limitaciones en NoteFlow |
+|---------|----------|---------------------------|
+| **useState** | Simple, local al componente | No comparte datos entre pestañas ni persiste |
+| **Context API** | Estado global sin librería extra | Re-renders amplios; providers anidados |
+| **Zustand** | API mínima, suscripciones granulares, middleware `persist` | Dependencia adicional (aceptable para la fase) |
+
+NoteFlow usa **`store/notesStore.ts`** con tres arrays (`notes`, `checklists`, `ideas`) y acciones tipadas. Los componentes se suscriben solo a lo que necesitan (`useNotesStore((s) => s.notes)`), evitando renders innecesarios frente a un Context monolítico.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
