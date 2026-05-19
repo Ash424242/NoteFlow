@@ -193,6 +193,10 @@ En NoteFlow:
 - Cada pestaña usa FlashList con tarjetas de altura estable.
 - Las tarjetas son componentes ligeros; la lógica pesada permanece en el store.
 
+## Formularios y validación
+
+El modal `app/nueva-nota.tsx` adapta campos según `type` (`note`, `checklist`, `idea`). Los schemas Zod en `schemas/noteSchemas.ts` validan antes de guardar en el store. `KeyboardAvoidingView` usa `padding` en iOS y `height` en Android. Los errores de Zod se muestran con `HelperText` bajo cada campo.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
