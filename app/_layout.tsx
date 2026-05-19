@@ -12,13 +12,22 @@ export default function RootLayout() {
       <StatusBar style={theme.dark ? 'light' : 'dark'} />
       <Stack
         screenOptions={{
-          headerShown: true,
-          headerTitleAlign: 'center',
           headerStyle: { backgroundColor: theme.colors.surface },
           headerTintColor: theme.colors.onSurface,
           contentStyle: { backgroundColor: theme.colors.background },
         }}
-      />
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="nueva-nota"
+          options={{
+            presentation: 'modal',
+            title: 'Nuevo contenido',
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
     </PaperProvider>
   );
 }

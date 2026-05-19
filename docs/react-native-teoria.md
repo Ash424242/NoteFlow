@@ -131,6 +131,26 @@ Gluestack UI sigue siendo una opción válida si en el futuro se requiere un dis
 
 `app.json` usa `"userInterfaceStyle": "automatic"` para seguir la preferencia del dispositivo.
 
+## Navegación en NoteFlow
+
+### Tabs, Stack y modales
+
+| Patrón | Qué es | Uso en NoteFlow |
+|--------|--------|-----------------|
+| **Tabs** | Barra inferior; cambia sección sin perder el estado de cada pestaña | Navegación principal: Notas, Tareas, Ideas |
+| **Stack** | Pila de pantallas con botón atrás | Dentro de cada pestaña: listado → detalle `[id]` |
+| **Modal** | Pantalla superpuesta, suele cerrarse sin consumir la pila del tab | Crear contenido en `nueva-nota.tsx` |
+
+### Rutas implementadas
+
+- `/notas`, `/checklists`, `/ideas` — listados (tabs).
+- `/notas/[id]`, `/checklists/[id]`, `/ideas/[id]` — detalle en stack por sección.
+- `/nueva-nota` — modal con parámetro `type` (`note` | `checklist` | `idea`).
+
+El layout raíz (`app/_layout.tsx`) es un **Stack** que contiene el grupo `(tabs)` y el modal. Cada tab tiene su propio **Stack** (`notas/_layout.tsx`, etc.) para que el detalle no reemplace las otras pestañas.
+
+`app/index.tsx` redirige a `/notas` como pantalla inicial.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)
