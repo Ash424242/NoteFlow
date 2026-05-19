@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { PaperProvider } from 'react-native-paper';
 
+import { HydrationGate } from '@/components/HydrationGate';
 import { useAppTheme } from '@/hooks/useAppTheme';
 
 export default function RootLayout() {
@@ -9,6 +10,7 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
+      <HydrationGate>
       <StatusBar style={theme.dark ? 'light' : 'dark'} />
       <Stack
         screenOptions={{
@@ -28,6 +30,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
+      </HydrationGate>
     </PaperProvider>
   );
 }

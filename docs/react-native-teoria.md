@@ -197,6 +197,14 @@ En NoteFlow:
 
 El modal `app/nueva-nota.tsx` adapta campos según `type` (`note`, `checklist`, `idea`). Los schemas Zod en `schemas/noteSchemas.ts` validan antes de guardar en el store. `KeyboardAvoidingView` usa `padding` en iOS y `height` en Android. Los errores de Zod se muestran con `HelperText` bajo cada campo.
 
+## Persistencia local
+
+AsyncStorage guarda el JSON del store bajo la clave `noteflow-storage` (middleware `persist` de Zustand). **Limitaciones:** sin cifrado, tamaño acotado por dispositivo y datos solo locales.
+
+### Rehidratación
+
+Al abrir la app, Zustand lee AsyncStorage y reconstruye el estado. Las fechas ISO se convierten de nuevo a `Date` en `onRehydrateStorage` (`utils/rehydrateDates.ts`). Hasta que termina, `_hasHydrated` es `false` y `HydrationGate` muestra un indicador de carga para no pintar listas vacías por un frame.
+
 ## Referencias
 
 - [Documentación de React Native](https://reactnative.dev/docs/getting-started)

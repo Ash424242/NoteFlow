@@ -49,7 +49,7 @@ export default function NuevaNotaScreen() {
   const [items, setItems] = useState<string[]>(['']);
   const [newItem, setNewItem] = useState('');
   const [tags, setTags] = useState('');
-  const [color, setColor] = useState(palette.ideaColors[0]);
+  const [color, setColor] = useState<string>(palette.ideaColors[0]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSave = () => {
