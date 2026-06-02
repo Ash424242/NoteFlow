@@ -127,6 +127,7 @@ Para validar scroll con 50+ ítems por pestaña, en desarrollo llama a `seedBenc
 | [docs/project-management.md](docs/project-management.md) | Flujo Trello y estado del proyecto |
 | [docs/ai-setup.md](docs/ai-setup.md) | Configuración de Cursor (`.cursorrules`) |
 | [docs/react-native-teoria.md](docs/react-native-teoria.md) | RN, Metro, Expo Go, diseño, navegación, estado, FlashList |
+| [docs/android-studio-device-setup.md](docs/android-studio-device-setup.md) | Ejecución nativa Android con Gradle en dispositivo físico |
 
 ---
 
