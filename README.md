@@ -109,6 +109,12 @@ npx expo start
 2. Pulsa `a` para Android o `i` para iOS (iOS requiere macOS).
 3. Alternativa: `npm run android` / `npm run ios`.
 
+### Debug en dispositivo físico (Android Studio)
+
+1. Ejecuta `npm run android:debug:prepare`.
+2. Levanta Metro con `npm run start:dev-client`.
+3. Lanza la app desde Android Studio en tu dispositivo físico.
+
 ### Deep linking
 
 Esquema de la app: `noteflow://`

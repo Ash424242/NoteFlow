@@ -59,6 +59,40 @@ Debe aparecer tu dispositivo como `device`.
 Desde la raíz del repo:
 
 ```bash
+npm run android:debug:auto
+```
+
+Este comando:
+- abre Metro (`start:dev-client`) en una nueva ventana,
+- reinicia ADB,
+- aplica `adb reverse tcp:8081 tcp:8081`,
+- instala la app debug en el dispositivo.
+
+Si ya tienes la app instalada y quieres saltar la instalación:
+
+```bash
+npm run android:debug:auto:noinstall
+```
+
+Flujo manual equivalente:
+
+```bash
+npm run android:debug:doctor
+npm run android:debug:prepare
+npm run start:dev-client
+```
+
+Esto reinicia ADB, aplica `adb reverse tcp:8081 tcp:8081` y deja listo el dispositivo físico para Debug/Run desde Android Studio.
+
+Si además quieres reinstalar la app debug automáticamente:
+
+```bash
+npm run android:debug:install
+```
+
+También puedes usar el flujo directo de Expo:
+
+```bash
 npm run android:device
 ```
 
@@ -75,7 +109,16 @@ gradlew.bat :app:assembleDebug
 
 - **SDK location not found**
   - Revisa `android/local.properties` o variable `ANDROID_HOME`.
+- **Error `device offline` al ejecutar**
+  - En Android Studio, selecciona el dispositivo físico (no `emulator-5554`).
+  - Ejecuta `npm run android:debug:prepare` para reiniciar ADB y reconectar.
 - **No devices/emulators found**
   - Revisa `adb devices`, cable/driver USB y permisos.
+- **Dispositivo `unauthorized`**
+  - Acepta el diálogo RSA en el teléfono y vuelve a ejecutar `npm run android:debug:prepare`.
+- **Pantalla roja `Unable to load script`**
+  - Asegúrate de tener Metro levantado con `npm run start:dev-client`.
+  - Ejecuta `npm run android:debug:prepare` para aplicar `adb reverse`.
+  - Si hay varios dispositivos conectados, el script aplica reverse a todos los que estén online.
 - **Build cache corrupta**
   - En `android/`: `gradlew.bat clean` y vuelve a ejecutar.
